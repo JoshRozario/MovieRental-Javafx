@@ -18,23 +18,24 @@ public class AlertBox {
 		Stage window = new Stage();
 		
 		window.initModality(Modality.APPLICATION_MODAL);
-		window.setTitle("Descriptions");
+		window.setTitle(title);
 		window.setMinWidth(250);
+		window.setMinHeight(100);
 		
 		Label label = new Label(message);
 		
-		Button Buy = new Button("Buy");
-		Button Cancel = new Button ("Cancel");
+		Button Ok = new Button("OK");
 		
-		Buy.setOnAction(e -> {
-			window.setScene(RentalSystem.boughtScene);
+		
+		Ok.setOnAction(e -> {
+			window.close();
 			
 		});
 		
-		Cancel.setOnAction(e-> window.close());
+		
 		
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(label, Buy,Cancel);
+		layout.getChildren().addAll(label, Ok);
 		layout.setAlignment(Pos.CENTER);
 		
 		Scene scene = new Scene(layout);

@@ -11,6 +11,7 @@ public class Movie {
 	
 	public Type movieType;
 	
+	
 	public Movie(String title,Type movieType) {
 		this.title = title;
 		this.movieType = movieType;
@@ -36,6 +37,12 @@ public class Movie {
 	
 	int getFrequentRenterPoints(int _daysRented) {
 		return movieType.getPoints();
+	}
+
+
+	@Override
+	public String toString() {
+		return title;
 	}
 
 	
