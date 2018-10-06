@@ -140,6 +140,26 @@ public class RentalSystem extends Application {
 			price.setValue(" ");
 		});	
 		
+		
+		
+		//Table
+		TableView<RentalItem> table;
+		
+		TableColumn<RentalItem, String> titleColumn = new TableColumn<RentalItem, String>("Movie");
+		titleColumn.setMinWidth(100);
+		titleColumn.setCellValueFactory(new PropertyValueFactory<>("Movie"));
+		
+		TableColumn<RentalItem, String> priceColumn = new TableColumn<RentalItem, String>("Price");
+		priceColumn.setMinWidth(100);
+		priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+		
+		table = new TableView<>();
+		table.setItems(getRented());
+		table.getColumns().addAll(titleColumn, priceColumn);
+		
+		GridPane.setConstraints(table, 1, 2);
+		
+		
 		//rent button
 		Button rentButton = new Button ("Rent");
 		GridPane.setConstraints(rentButton, 3, 1);
@@ -148,14 +168,16 @@ public class RentalSystem extends Application {
 				AlertBox.display("Alert", "Please calculate the price of a movie first");
 			}else {
 				
-				if(!alreadyRented(Basket.showBasket(), choiceBox.getValue().getTitle())){
-					Basket.add(new RentalItem(choiceBox.getValue(),price.getValue()));
-					ArrayList<RentalComponent> test = Basket.showBasket();
+				if(!alreadyRented(((RentalBasket) Basket).showBasket(), choiceBox.getValue().getTitle())){
+					((RentalBasket) Basket).add(new RentalItem(choiceBox.getValue(), price.getValue()));
+					table.setItems(getRented());
+					ArrayList<RentalComponent> test = ((RentalBasket) Basket).showBasket();
 					for(RentalComponent d : test){
-						System.out.println(d.display());
+						System.out.println(((RentalItem) d).getMovie());
 						
 					}
 					price.setValue(" ");
+					
 				}else{
 					AlertBox.display("Alert", "Movie already rented");
 				}
@@ -164,24 +186,7 @@ public class RentalSystem extends Application {
 			
 		});
 		
-		//Table
-				Basket.add(new RentalItem(Shrek3,"2.50"));
 		
-				TableView<RentalComponent> table;
-				
-				TableColumn<RentalComponent, String> titleColumn = new TableColumn<RentalComponent, String>("Movie");
-				titleColumn.setMinWidth(100);
-				titleColumn.setCellValueFactory(new PropertyValueFactory<>("Movie"));
-				
-				TableColumn<RentalComponent, String> priceColumn = new TableColumn<RentalComponent, String>("Price");
-				priceColumn.setMinWidth(100);
-				priceColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
-				
-				table = new TableView<>();
-				table.setItems(getRented());
-				table.getColumns().addAll(titleColumn, priceColumn);
-				
-				GridPane.setConstraints(table, 1, 2);
 		
 		GridPane.setConstraints(choiceBox,0,0);
 		
@@ -208,16 +213,20 @@ public class RentalSystem extends Application {
 	}
 	
 	private boolean alreadyRented(ArrayList<RentalComponent> test,String title){
+		
 		for (RentalComponent d: test){
-			if (d.getMovieName().equals(title)){
+			if (((RentalItem) d).getMovie().equals(title)){
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public ObservableList<RentalComponent> getRented(){
-		ObservableList<RentalComponent>	rented = FXCollections.observableArrayList(Basket);
+	public ObservableList<RentalItem> getRented(){
+		ObservableList<RentalItem>	rented = FXCollections.observableArrayList();
+		for(RentalComponent d : ((RentalBasket) Basket).showBasket()) {
+			rented.add((RentalItem) d);
+		}
 		return rented;
 		
 	}

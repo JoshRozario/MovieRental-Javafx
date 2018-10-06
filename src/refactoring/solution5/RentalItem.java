@@ -1,6 +1,6 @@
 package refactoring.solution5;
 
-public class RentalItem extends RentalComponent {
+public class RentalItem implements RentalComponent {
 	Movie movie;
 	
 	String price;
@@ -11,15 +11,27 @@ public class RentalItem extends RentalComponent {
 		price = newPrice;
 
 	}
-	
-	public String getMovieName(){
+	@Override
+	public String getMovie(){
 		return movie.getTitle();
 	}
-
-	@Override
-	public String display() {
-		return movie.getTitle() +" "+  price;
+	
+	public double returnPrice(){
+		return Double.parseDouble(price);
 	}
+
+
+	
+	@Override
+	public String getPrice() {
+		return price;
+	}
+
+
+
+	
+	
+	
 	
 	
 	
