@@ -24,7 +24,7 @@ public class RentalItem implements RentalComponent {
 	
 	@Override
 	public String getPrice() {
-		return price;
+		return "$" + price;
 	}
 
 

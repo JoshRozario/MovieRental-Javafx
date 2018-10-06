@@ -24,21 +24,28 @@ public class RentalBasket implements RentalComponent{
 		
 	}
 
-	@Override
-	public String getPrice() {
+	
+	public String getPrices() {
 		double tPrice = 0;
 		for (RentalComponent d: RentalItems) {
 			RentalItem x = (RentalItem) d;
 			tPrice += x.returnPrice();
 			
 		}
-		return Double.toString(tPrice);
+		String test = String.format("%.2f", tPrice);
+		return "$" + test;
 	}
 
 	@Override
 	public String getMovie() {
 		// TODO Auto-generated method stub
 		return "pingas";
+	}
+
+	@Override
+	public String getPrice() {
+		// TODO Auto-generated method stub
+		return "WRONG CLASS";
 	}
 
 

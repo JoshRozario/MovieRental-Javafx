@@ -51,6 +51,7 @@ public class RentalSystem extends Application {
 		
 		StringProperty movieClass = new SimpleStringProperty();
 		StringProperty price = new SimpleStringProperty();
+		StringProperty Tprice = new SimpleStringProperty();
 		
 		movieClass.setValue(" ");
 		price.setValue(" ");
@@ -94,6 +95,7 @@ public class RentalSystem extends Application {
 		GridPane.setConstraints(movieLabel,1,0);
 		
 		
+		
 		//price label
 		Label priceLabel = new Label();
 		priceLabel.textProperty().bind(price);
@@ -111,7 +113,7 @@ public class RentalSystem extends Application {
 			}else {
 				days = isInt(daysRented);
 				double theprice = curMovie.getCharge(days);
-				price.setValue("$"+ String.format("%.2f", theprice));
+				price.setValue(String.format("%.2f", theprice));
 			}
 			
 		});
@@ -131,15 +133,17 @@ public class RentalSystem extends Application {
 		choiceBox.setValue(Default);
 		
 		choiceBox.setOnAction(e -> {
-			if (choiceBox.getValue().getTitle().equals("Default")){
+			if (choiceBox.getValue().getTitle().equals("Movie")){
 				movieClass.setValue("");
 			}else {
 				movieClass.setValue(choiceBox.getValue().movieType.toString());
 				curMovie = choiceBox.getValue();  
+				
 			}
 			price.setValue(" ");
 		});	
 		
+		GridPane.setConstraints(choiceBox,0,0);
 		
 		
 		//Table
@@ -159,6 +163,12 @@ public class RentalSystem extends Application {
 		
 		GridPane.setConstraints(table, 1, 2);
 		
+		//Total price Label
+				Label TpriceLabel = new Label();
+				TpriceLabel.textProperty().bind(Tprice);
+				GridPane.setConstraints(TpriceLabel,1,3);
+				Tprice.set("Total: ");	
+		
 		
 		//rent button
 		Button rentButton = new Button ("Rent");
@@ -171,11 +181,9 @@ public class RentalSystem extends Application {
 				if(!alreadyRented(((RentalBasket) Basket).showBasket(), choiceBox.getValue().getTitle())){
 					((RentalBasket) Basket).add(new RentalItem(choiceBox.getValue(), price.getValue()));
 					table.setItems(getRented());
-					ArrayList<RentalComponent> test = ((RentalBasket) Basket).showBasket();
-					for(RentalComponent d : test){
-						System.out.println(((RentalItem) d).getMovie());
-						
-					}
+					String total = ((RentalBasket) Basket).getPrices();
+					//System.out.println(total);
+					Tprice.setValue("Total: "+ total);
 					price.setValue(" ");
 					
 				}else{
@@ -186,14 +194,12 @@ public class RentalSystem extends Application {
 			
 		});
 		
-		
-		
-		GridPane.setConstraints(choiceBox,0,0);
+			
 		
 		  
-		grid.getChildren().addAll(daysRented,choiceBox,daysLabel,movieLabel,priceLabel,priceButton,rentButton,table);
+		grid.getChildren().addAll(daysRented,choiceBox,daysLabel,movieLabel,priceLabel,priceButton,rentButton,table,TpriceLabel);
 		
-		Scene scene = new Scene(grid, 400, 200);
+		Scene scene = new Scene(grid, 530, 200);
 		
 		window.setScene(scene);
 		
