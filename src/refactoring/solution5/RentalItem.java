@@ -3,23 +3,25 @@ package refactoring.solution5;
 public class RentalItem extends RentalComponent {
 	Movie movie;
 	
-	double price;
+	String price;
 	
 	
-	public RentalItem(Movie newMovie){
+	public RentalItem(Movie newMovie,String newPrice){
 		movie = newMovie;
-		
+		price = newPrice;
+
 	}
 	
 	public String getMovieName(){
 		return movie.getTitle();
 	}
 
-	public Double calculatePrice(int daysRented){
-		price = movie.getCharge(daysRented);
-		//add discount
-		
-		return price;
-		
+	@Override
+	public String display() {
+		return movie.getTitle() +" "+  price;
 	}
+	
+	
+	
+
 }

@@ -17,6 +17,17 @@ public class RentalBasket extends RentalComponent{
 	public void remove(RentalComponent newRentalitem) {
 		RentalItems.remove(newRentalitem);
 	}
+
+	@Override
+	public ArrayList<RentalComponent> showBasket() {
+		
+		return RentalItems;
+	}
+
+	
+
+	
+	
 	
 	
 	
