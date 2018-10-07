@@ -1,10 +1,10 @@
 package refactoring.solution5;
 
 public class Rental {
-	private Movie _movie;
+	private BasicMovie _movie;
 	private int _daysRented;
 	
-	public Rental(Movie movie, int daysRented) {
+	public Rental(BasicMovie movie, int daysRented) {
 		_movie = movie;
 		_daysRented = daysRented;
 	}
@@ -13,7 +13,7 @@ public class Rental {
 		return _daysRented;
 	}
 	
-	public Movie getMovie() {
+	public BasicMovie getMovie() {
 		return _movie;
 	}
 

@@ -1,12 +1,12 @@
 package refactoring.solution5;
 
 public class RentalItem implements RentalComponent {
-	Movie movie;
+	BasicMovie movie;
 	
 	String price;
 	
 	
-	public RentalItem(Movie newMovie,String newPrice){
+	public RentalItem(BasicMovie newMovie,String newPrice){
 		movie = newMovie;
 		price = newPrice;
 

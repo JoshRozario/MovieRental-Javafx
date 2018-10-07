@@ -33,6 +33,11 @@ public class RentalBasket implements RentalComponent{
 			
 		}
 		String test = String.format("%.2f", tPrice);
+		if(RentalItems.size()>4) {
+			tPrice = tPrice*0.9	;		
+			test = test + ", 10% discount added!";
+		}
+		
 		return "$" + test;
 	}
 

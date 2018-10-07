@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -66,12 +67,12 @@ public class RentalSystem extends Application {
 		grid.setHgap(10);
 		
 		//movies
-		Movie Default = new Movie("Movie", new Regular());
-		Movie Titanic = new Movie("Titanic", new Classic());
-		Movie FightClub = new Movie("Fight Club", new Classic());
-		Movie Deadpool = new Movie("Deadpool", new Regular());
-		Movie Deadpool2 = new Movie("Deadpool 2", new New());
-		Movie Shrek3 = new Movie("Shrek the Third", new Regular());
+		BasicMovie Default = new BasicMovie("Movie", new Regular());
+		BasicMovie Titanic = new BasicMovie("Titanic", new Classic());
+		BasicMovie FightClub = new BasicMovie("Fight Club", new Classic());
+		BasicMovie Deadpool = new BasicMovie("Deadpool", new Regular());
+		BasicMovie Deadpool2 = new BasicMovie("Deadpool 2", new New());
+		BasicMovie Shrek3 = new BasicMovie("Shrek the Third", new Regular());
 		
 		curMovie = Default;
 		
@@ -105,9 +106,15 @@ public class RentalSystem extends Application {
 		//price label
 		Label priceLabel = new Label();
 		priceLabel.textProperty().bind(price);
-		GridPane.setConstraints(priceLabel, 2, 0);
+		GridPane.setConstraints(priceLabel, 1, 0);
+		GridPane.setHalignment(priceLabel, HPos.RIGHT);
 		
-
+		
+		
+		
+		
+		
+		
 		//price button
 		Button priceButton = new Button ("Calculate");
 		GridPane.setConstraints(priceButton, 2, 1);
@@ -126,7 +133,7 @@ public class RentalSystem extends Application {
 			
 		
 		//choiceBox
-		ChoiceBox<Movie> choiceBox = new ChoiceBox<>();
+		ChoiceBox<BasicMovie> choiceBox = new ChoiceBox<>();
 		choiceBox.minWidth(2);
 		choiceBox.getItems().add(Default);
 		choiceBox.getItems().add(Titanic);
@@ -150,6 +157,30 @@ public class RentalSystem extends Application {
 		});	
 		
 		GridPane.setConstraints(choiceBox,0,0);
+		
+		
+		//Checkbox
+		CheckBox schoolH = new CheckBox("School Holiday");
+		CheckBox pubH = new CheckBox("Public Holiday");
+		GridPane.setConstraints(schoolH, 2, 0);
+		GridPane.setConstraints(pubH, 3, 0);
+				
+		pubH.setOnAction(e -> {
+			if (pubH.isSelected()){
+				 curMovie = new PubHolidayMovie(curMovie);
+			}else {
+				 curMovie = new BasicMovie(choiceBox.getValue().getTitle(),choiceBox.getValue().movieType);
+			}
+		});
+		
+		schoolH.setOnAction(e -> {
+			if (schoolH.isSelected()){
+				 curMovie = new SchoolHolidayMovie(curMovie);
+			}else {
+				 curMovie = new BasicMovie(choiceBox.getValue().getTitle(),choiceBox.getValue().movieType);
+			}
+		});
+				
 		
 		
 		//Table
@@ -204,7 +235,7 @@ public class RentalSystem extends Application {
 			
 		
 		  
-		grid.getChildren().addAll(daysRented,choiceBox,daysLabel,movieLabel,priceLabel,priceButton,rentButton,table,TpriceLabel,cartLabel);
+		grid.getChildren().addAll(daysRented,choiceBox,daysLabel,movieLabel,priceLabel,priceButton,rentButton,table,TpriceLabel,cartLabel,pubH,schoolH);
 		
 		Scene scene = new Scene(grid, 530, 200);
 		
