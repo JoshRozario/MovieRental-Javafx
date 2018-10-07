@@ -9,7 +9,9 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -94,7 +96,11 @@ public class RentalSystem extends Application {
 		movieLabel.textProperty().bind(movieClass);
 		GridPane.setConstraints(movieLabel,1,0);
 		
-		
+		//Cart class label
+		Label cartLabel = new Label("Cart:");
+		GridPane.setConstraints(cartLabel,0,2);
+		GridPane.setHalignment(cartLabel, HPos.RIGHT);
+		GridPane.setValignment(cartLabel, VPos.TOP);
 		
 		//price label
 		Label priceLabel = new Label();
@@ -160,14 +166,15 @@ public class RentalSystem extends Application {
 		table = new TableView<>();
 		table.setItems(getRented());
 		table.getColumns().addAll(titleColumn, priceColumn);
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		GridPane.setConstraints(table, 1, 2);
 		
 		//Total price Label
-				Label TpriceLabel = new Label();
-				TpriceLabel.textProperty().bind(Tprice);
-				GridPane.setConstraints(TpriceLabel,1,3);
-				Tprice.set("Total: ");	
+		Label TpriceLabel = new Label();
+		TpriceLabel.textProperty().bind(Tprice);
+		GridPane.setConstraints(TpriceLabel,1,3);
+		Tprice.set("Total: ");	
 		
 		
 		//rent button
@@ -197,7 +204,7 @@ public class RentalSystem extends Application {
 			
 		
 		  
-		grid.getChildren().addAll(daysRented,choiceBox,daysLabel,movieLabel,priceLabel,priceButton,rentButton,table,TpriceLabel);
+		grid.getChildren().addAll(daysRented,choiceBox,daysLabel,movieLabel,priceLabel,priceButton,rentButton,table,TpriceLabel,cartLabel);
 		
 		Scene scene = new Scene(grid, 530, 200);
 		
