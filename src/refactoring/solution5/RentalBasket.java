@@ -44,7 +44,7 @@ public class RentalBasket implements RentalComponent{
 	@Override
 	public String getMovie() {
 		// TODO Auto-generated method stub
-		return "pingas";
+		return "This should not happen";
 	}
 
 	@Override
